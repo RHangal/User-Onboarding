@@ -36,3 +36,43 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+.form--container {
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid black; */
+}
+
+label {
+  /* border: 1px solid blue; */
+  width: 30%;
+  display: flex;
+  align-self: center;
+  justify-content: space-between;
+  margin: .2%;
+}
+
+
+
+button {
+  width: 6rem;
+  align-self: center;
+  margin: .6%;
+}
+
+.users--container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.user{
+  border: 1rem solid rgb(87, 87, 186);
+  border-radius: 3rem;
+  margin: .5%;
+  width: 40%;
+ 
+}
