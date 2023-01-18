@@ -47,7 +47,7 @@ export default function Form(props){
                 <label>Married
                     <input onChange={onChange} name='civil' value='married' type='radio' checked={values.civil === 'married'}/>
                 </label>
-                <button disabled={disabled}>Submit</button>
+                <button id="submit" disabled={disabled}>Submit</button>
         </div>
             </form>
         
