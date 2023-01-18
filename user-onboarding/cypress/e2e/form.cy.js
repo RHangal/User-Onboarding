@@ -84,6 +84,27 @@ describe("Filling out the inputs", () => {
     })
 })
 
+describe("Error messages", () => {
+    it("displays the correct error messages", () => {
+        first_nameInput().type("Deesha{selectAll}{backspace}");
+        cy.contains("first name is required!");
+
+        last_nameInput().type("T{backspace}");
+        cy.contains("last name is required!");
+        
+        emailInput().type("t@g.com {selectAll}{backspace}");
+        cy.contains("You've gotta have an email");
+
+        passwordInput().type("passwordlength{selectAll}{backspace}");
+        cy.contains("You must have a password")
+
+        cy.contains("agree to the Terms of Service")
+        tosInput().check()
+        cy.contains("agree to the Terms of Service").should("not.exist")
+        
+    })
+})
+
 describe("Adding a new member", () => {
     it("can submit and add a new member", () => {
         first_nameInput().type("Deesha");
