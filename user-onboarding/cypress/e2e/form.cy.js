@@ -1,4 +1,5 @@
 describe("Onboarding App", () => {
+    //return state to default by re-visiting page before each test
     beforeEach(() => {
        cy.visit("http://localhost:3000"); 
     })
@@ -19,26 +20,83 @@ it("Sanity check to make sure tests work", () => {
     expect({}).not.to.equal({});
 })
 
+//CI/CD -> Continuous Integration / Continuous Delivery
+it("The proper elements are showing", () => {
+    first_nameInput().should("exist");
+    last_nameInput().should("exist");
+    emailInput().should("exist");
+    passwordInput().should("exist");
+    tosInput().should("exist");
+    civilInput().should("exist");
+    submitButton().should("exist");
+    foobarInput().should("not.exist");
 
+    cy.contains(/submit/i).should("exist");
+})
 
+describe("Filling out the inputs", () => {
+    it("can navigate to the site", () => {
+        cy.url().should("include", "localhost");
+    })
 
+    it("submit button starts out disabled", () => {
+        submitButton().should("be.disabled");
+    })
 
+    it("can type in the inputs", () => {
+        first_nameInput()
+            .should("have.value","")
+            .type("Rohan")
+            .should("have.value","Rohan");
+        last_nameInput()
+            .should("have.value","")
+            .type("Hangal")
+            .should("have.value","Hangal");
+        emailInput()
+            .should("have.value","")
+            .type("rohanhangal@gmail.com")
+            .should("have.value","rohanhangal@gmail.com");
+        passwordInput()
+            .should("have.value","")
+            .type("bestpasswordispassword")
+            .should("have.value","bestpasswordispassword");
+        tosInput()
+            .should("not.have.checked")
+            .check()
+            .should("have.checked");
+        civilInput()
+            .should("not.have.checked")
+            .check("single")
+            .should("have.checked.value", "single");
+        civilInput()
+            .check("married")
+            .should("have.checked.value", "married")  ;
+    })
 
+    it("the submit button enables when all fields are filled out", () => {
+        first_nameInput().type("Deesha");
+        last_nameInput().type("Tripathy");
+        emailInput().type("tdeesha@gmail.com");
+        passwordInput().type("passwordlength");
+        tosInput().check();
+        civilInput().check("married");
+        submitButton().should("not.be.disabled");
+    })
+})
 
+describe("Adding a new member", () => {
+    it("can submit and add a new member", () => {
+        first_nameInput().type("Deesha");
+        last_nameInput().type("Tripathy");
+        emailInput().type("tdeesha@gmail.com");
+        passwordInput().type("passwordlength");
+        tosInput().check();
+        civilInput().check("married");
+        submitButton().click();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        cy.contains("Deesha Tripathy")
+    })
+})
 
 
 
